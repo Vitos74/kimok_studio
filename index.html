@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KimOK Studio</title>
+    <title>KimOK Studio | Ателье</title>
     <!-- Подключение шрифтов и иконок FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -92,8 +92,17 @@
         .profile-name {
             font-size: 24px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: var(--text-main);
+        }
+
+        .profile-subtitle {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
         }
 
         .profile-bio {
@@ -271,7 +280,8 @@
                 <i class="fa-solid fa-scissors"></i>
             </div>
             <h1 class="profile-name" id="view-name">KimOK Studio</h1>
-            <div class="profile-bio" id="view-bio">Индивидуальный пошив, ремонт одежды и мастер-классы</div>
+            <div class="profile-subtitle" id="view-subtitle">АТЕЛЬЕ</div>
+            <div class="profile-bio" id="view-bio">индивидуальный пошив · ремонт одежды · апсайклинг · мастер-классы</div>
         </div>
 
         <!-- Основные ссылки -->
@@ -316,85 +326,3 @@
             <div class="nav-buttons">
                 <a href="https://map.naver.com/v5/search/인천 연수구 새말로45번길 14-2" class="nav-btn" target="_blank">Naver Map</a>
                 <a href="https://map.kakao.com/?q=인천 연수구 새말로45번길 14-2" class="nav-btn" target="_blank">KakaoMap</a>
-                <a href="https://maps.google.com/?q=인천 연수구 새말로45번길 14-2" class="nav-btn" target="_blank">Google</a>
-            </div>
-        </div>
-
-        <!-- Футер -->
-        <div class="footer">
-            © KimOK Studio. All rights reserved.
-        </div>
-    </div>
-
-    <!-- Модальное окно редактирования -->
-    <div class="modal" id="settingsModal">
-        <div class="modal-content">
-            <h3>Редактировать данные</h3>
-            <div class="form-group">
-                <label>Название</label>
-                <input type="text" id="input-name" value="KimOK Studio">
-            </div>
-            <div class="form-group">
-                <label>Описание / Услуги</label>
-                <input type="text" id="input-bio" value="Индивидуальный пошив, ремонт одежды и мастер-классы">
-            </div>
-            <div class="form-group">
-                <label>Телефон (для звонков)</label>
-                <input type="text" id="input-phone" value="01084912550">
-            </div>
-            <div class="form-group">
-                <label>WhatsApp (номер с кодом страны)</label>
-                <input type="text" id="input-wa" value="821084912550">
-            </div>
-            <div class="form-group">
-                <label>Instagram (аккаунт без @)</label>
-                <input type="text" id="input-insta" value="kimok_studio">
-            </div>
-            <div class="form-group">
-                <label>Адрес</label>
-                <input type="text" id="input-address" value="인천 연수구 새말로45번길 14-2">
-            </div>
-            <div class="modal-actions">
-                <button class="save-btn" onclick="saveSettings()">Сохранить</button>
-                <button class="close-btn" onclick="closeModal()">Закрыть</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function copyAddress() {
-            const address = document.getElementById('view-address').innerText;
-            navigator.clipboard.writeText(address).then(() => {
-                alert('Адрес скопирован в буфер обмена!');
-            });
-        }
-
-        function openModal() {
-            document.getElementById('settingsModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('settingsModal').style.display = 'none';
-        }
-
-        function saveSettings() {
-            const name = document.getElementById('input-name').value;
-            const bio = document.getElementById('input-bio').value;
-            const phone = document.getElementById('input-phone').value;
-            const wa = document.getElementById('input-wa').value;
-            const insta = document.getElementById('input-insta').value;
-            const address = document.getElementById('input-address').value;
-
-            document.getElementById('view-name').innerText = name;
-            document.getElementById('view-bio').innerText = bio;
-            document.getElementById('view-phone-text').innerText = phone;
-            document.getElementById('link-phone').href = 'tel:' + phone;
-            document.getElementById('link-whatsapp').href = 'https://wa.me/' + wa;
-            document.getElementById('link-instagram').href = 'https://www.instagram.com/' + insta;
-            document.getElementById('view-address').innerText = address;
-
-            closeModal();
-        }
-    </script>
-</body>
-</html>
