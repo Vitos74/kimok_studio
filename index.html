@@ -326,3 +326,91 @@
             <div class="nav-buttons">
                 <a href="https://map.naver.com/v5/search/인천 연수구 새말로45번길 14-2" class="nav-btn" target="_blank">Naver Map</a>
                 <a href="https://map.kakao.com/?q=인천 연수구 새말로45번길 14-2" class="nav-btn" target="_blank">KakaoMap</a>
+                <a href="https://maps.google.com/?q=인천 연수구 새말로45번길 14-2" class="nav-btn" target="_blank">Google</a>
+            </div>
+        </div>
+
+        <!-- Футер -->
+        <div class="footer">
+            © KimOK Studio. All rights reserved.
+        </div>
+    </div>
+
+    <!-- Модальное окно редактирования -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h3>Редактировать данные</h3>
+            <div class="form-group">
+                <label>Название</label>
+                <input type="text" id="input-name" value="KimOK Studio">
+            </div>
+            <div class="form-group">
+                <label>Подзаголовок</label>
+                <input type="text" id="input-subtitle" value="АТЕЛЬЕ">
+            </div>
+            <div class="form-group">
+                <label>Услуги / Описание</label>
+                <input type="text" id="input-bio" value="индивидуальный пошив · ремонт одежды · апсайклинг · мастер-классы">
+            </div>
+            <div class="form-group">
+                <label>Телефон (для звонков)</label>
+                <input type="text" id="input-phone" value="01084912550">
+            </div>
+            <div class="form-group">
+                <label>WhatsApp (номер с кодом страны)</label>
+                <input type="text" id="input-wa" value="821084912550">
+            </div>
+            <div class="form-group">
+                <label>Instagram (аккаунт без @)</label>
+                <input type="text" id="input-insta" value="kimok_studio">
+            </div>
+            <div class="form-group">
+                <label>Адрес</label>
+                <input type="text" id="input-address" value="인천 연수구 새말로45번길 14-2">
+            </div>
+            <div class="modal-actions">
+                <button class="save-btn" onclick="saveSettings()">Сохранить</button>
+                <button class="close-btn" onclick="closeModal()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyAddress() {
+            const address = document.getElementById('view-address').innerText;
+            navigator.clipboard.writeText(address).then(() => {
+                alert('Адрес скопирован в буфер обмена!');
+            });
+        }
+
+        function openModal() {
+            document.getElementById('settingsModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+
+        function saveSettings() {
+            const name = document.getElementById('input-name').value;
+            const subtitle = document.getElementById('input-subtitle').value;
+            const bio = document.getElementById('input-bio').value;
+            const phone = document.getElementById('input-phone').value;
+            const wa = document.getElementById('input-wa').value;
+            const insta = document.getElementById('input-insta').value;
+            const address = document.getElementById('input-address').value;
+
+            document.getElementById('view-name').innerText = name;
+            document.getElementById('view-subtitle').innerText = subtitle;
+            document.getElementById('view-bio').innerText = bio;
+            document.getElementById('view-phone-text').innerText = phone;
+            document.getElementById('link-phone').href = 'tel:' + phone;
+            document.getElementById('link-whatsapp').href = 'https://wa.me/' + wa;
+            document.getElementById('link-instagram').href = 'https://www.instagram.com/' + insta;
+            document.getElementById('view-address').innerText = address;
+
+            closeModal();
+        }
+    </script>
+</body>
+</html>
