@@ -14,8 +14,8 @@
             --card-bg: #ffffff;
             --text-main: #1f2937;
             --text-muted: #6b7280;
-            --accent: #4f46e5;
-            --accent-hover: #4338ca;
+            --accent: #7a5c3e;
+            --accent-hover: #5e452d;
             --border-color: #e5e7eb;
             --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
             --radius: 20px;
@@ -72,28 +72,21 @@
         /* Шапка профиля */
         .profile-header {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
 
-        .avatar-container {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 16px;
-            border-radius: 50%;
-            background: #eef2ff;
+        .logo-container {
+            width: 140px;
+            margin: 0 auto 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent);
-            font-size: 36px;
-            border: 2px solid #e0e7ff;
         }
 
-        .profile-name {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: var(--text-main);
+        .logo-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
         }
 
         .profile-subtitle {
@@ -157,6 +150,7 @@
         .btn.whatsapp i { color: #25D366; }
         .btn.instagram i { color: #E4405F; }
         .btn.phone i { color: var(--accent); }
+        .btn.vcard i { color: #3b82f6; }
 
         /* Навигация */
         .nav-section {
@@ -276,16 +270,24 @@
 
         <!-- Шапка -->
         <div class="profile-header">
-            <div class="avatar-container">
-                <i class="fa-solid fa-scissors"></i>
+            <div class="logo-container">
+                <img src="logo.png" alt="KimOK Studio Logo" class="logo-img" id="view-logo">
             </div>
-            <h1 class="profile-name" id="view-name">KimOK Studio</h1>
             <div class="profile-subtitle" id="view-subtitle">АТЕЛЬЕ</div>
             <div class="profile-bio" id="view-bio">индивидуальный пошив · ремонт одежды · апсайклинг · мастер-классы</div>
         </div>
 
         <!-- Основные ссылки -->
         <div class="links-container">
+            <!-- Кнопка сохранения контакта -->
+            <a href="#" class="btn vcard" id="link-vcard" onclick="downloadVCard(event)">
+                <div class="btn-left">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span>Сохранить в контакты</span>
+                </div>
+                <i class="fa-solid fa-download" style="font-size: 12px; color: var(--text-muted);"></i>
+            </a>
+
             <a href="https://wa.me/821084912550?text=Здравствуйте!%20Хочу%20уточнить%20информацию." class="btn whatsapp" id="link-whatsapp" target="_blank">
                 <div class="btn-left">
                     <i class="fa-brands fa-whatsapp"></i>
@@ -341,8 +343,12 @@
         <div class="modal-content">
             <h3>Редактировать данные</h3>
             <div class="form-group">
-                <label>Название</label>
-                <input type="text" id="input-name" value="KimOK Studio">
+                <label>Имя контакта</label>
+                <input type="text" id="input-contact-name" value="Ким Оксана">
+            </div>
+            <div class="form-group">
+                <label>Организация</label>
+                <input type="text" id="input-company" value="KimOK Studio">
             </div>
             <div class="form-group">
                 <label>Подзаголовок</label>
@@ -383,6 +389,37 @@
             });
         }
 
+        function downloadVCard(event) {
+            event.preventDefault();
+            const contactName = document.getElementById('input-contact-name') ? document.getElementById('input-contact-name').value : 'Ким Оксана';
+            const company = document.getElementById('input-company') ? document.getElementById('input-company').value : 'KimOK Studio';
+            const phone = document.getElementById('input-phone').value;
+            const address = document.getElementById('view-address').innerText;
+            const insta = document.getElementById('input-insta').value;
+
+            const vcard = 
+`BEGIN:VCARD
+VERSION:3.0
+N:Ким;Оксана;;;
+FN:${contactName}
+ORG:${company}
+TITLE:Ателье / Портной
+TEL;TYPE=CELL:${phone}
+ADR;TYPE=WORK:;;인천 연수구 새말로45번길 14-2;;;;
+URL:https://www.instagram.com/${insta}
+END:VCARD`;
+
+            const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'KimOK_Studio_Kim_Oksana.vcf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
         function openModal() {
             document.getElementById('settingsModal').style.display = 'flex';
         }
@@ -392,7 +429,6 @@
         }
 
         function saveSettings() {
-            const name = document.getElementById('input-name').value;
             const subtitle = document.getElementById('input-subtitle').value;
             const bio = document.getElementById('input-bio').value;
             const phone = document.getElementById('input-phone').value;
@@ -400,7 +436,6 @@
             const insta = document.getElementById('input-insta').value;
             const address = document.getElementById('input-address').value;
 
-            document.getElementById('view-name').innerText = name;
             document.getElementById('view-subtitle').innerText = subtitle;
             document.getElementById('view-bio').innerText = bio;
             document.getElementById('view-phone-text').innerText = phone;
